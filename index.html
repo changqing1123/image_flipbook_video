@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片翻页视频生成器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📖 图片翻页视频生成器</h1>
+        <p class="subtitle">上传图片，生成翻页效果视频</p>
+        
+        <!-- 上传区域 -->
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" accept="image/*" multiple>
+                <div class="upload-content">
+                    <div class="upload-icon">📤</div>
+                    <p>点击或拖拽上传图片</p>
+                    <p class="hint">支持多张图片，建议3-10张</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 图片预览 -->
+        <div class="preview-section" id="previewSection" style="display: none;">
+            <h2>已上传图片 (<span id="imageCount">0</span>张)</h2>
+            <div class="image-list" id="imageList"></div>
+            <button class="btn-clear" id="clearBtn">清空图片</button>
+        </div>
+
+        <!-- 设置区域 -->
+        <div class="settings-section" id="settingsSection" style="display: none;">
+            <h2>⚙️ 视频设置</h2>
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label>每张图片停留时间（秒）</label>
+                    <input type="number" id="duration" value="2" min="0.5" max="10" step="0.5">
+                </div>
+                <div class="setting-item">
+                    <label>翻页动画时长（秒）</label>
+                    <input type="number" id="transitionDuration" value="0.5" min="0.1" max="2" step="0.1">
+                </div>
+                <div class="setting-item">
+                    <label>视频比例</label>
+                    <select id="aspectRatio">
+                        <option value="auto" selected>自动适应图片尺寸</option>
+                        <option value="3:4">3:4 竖屏 (1080x1440)</option>
+                        <option value="9:16">9:16 竖屏 (1080x1920)</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>帧率（FPS）</label>
+                    <select id="fps">
+                        <option value="24" selected>24 FPS</option>
+                        <option value="30">30 FPS</option>
+                        <option value="60">60 FPS</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 生成按钮 -->
+        <div class="action-section" id="actionSection" style="display: none;">
+            <button class="btn-generate" id="generateBtn">
+                <span class="btn-text">🎬 生成视频</span>
+            </button>
+        </div>
+
+        <!-- 进度显示 -->
+        <div class="progress-section" id="progressSection" style="display: none;">
+            <h2>生成中...</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text" id="progressText">准备中...</p>
+        </div>
+
+        <!-- 预览和下载 -->
+        <div class="result-section" id="resultSection" style="display: none;">
+            <h2>✅ 视频生成完成！</h2>
+            <video id="resultVideo" controls></video>
+            <div class="result-actions">
+                <button class="btn-download" id="downloadBtn">💾 下载视频 (WebM)</button>
+                <button class="btn-restart" id="restartBtn">🔄 重新制作</button>
+            </div>
+            <div class="convert-guide" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                <h3 style="margin: 0 0 10px 0; font-size: 16px; color: #667eea;">📱 如何转换为 MP4？</h3>
+                <p style="margin: 5px 0; font-size: 14px; color: #666;">
+                    <strong>推荐方法：使用 VLC 播放器（免费、简单）</strong><br>
+                    1. 下载安装 <a href="https://www.videolan.org/vlc/" target="_blank" style="color: #667eea; font-weight: 600;">VLC 播放器</a><br>
+                    2. 打开 VLC，点击"媒体" → "转换/保存"<br>
+                    3. 添加下载的 WebM 文件<br>
+                    4. 选择"转换"，配置文件选择"Video - H.264 + MP3 (MP4)"<br>
+                    5. 点击"开始"，等待转换完成
+                </p>
+                <p style="margin: 10px 0 5px 0; font-size: 14px; color: #666;">
+                    <strong>专业方法：使用 FFmpeg 命令行</strong><br>
+                    下载 <a href="https://ffmpeg.org/download.html" target="_blank" style="color: #667eea;">FFmpeg</a> 后运行：<br>
+                    <code style="background: #fff; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 5px; font-family: monospace; font-size: 12px;">
+                        ffmpeg -i input.webm -c:v libx264 -crf 23 -pix_fmt yuv420p output.mp4
+                    </code>
+                </p>
+                <p style="margin: 10px 0 0 0; font-size: 13px; color: #999;">
+                    💡 提示：WebM 格式在现代浏览器中播放效果很好，如果只是预览可以直接使用
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

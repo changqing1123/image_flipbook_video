@@ -1,0 +1,374 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+h1 {
+    color: #333;
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.subtitle {
+    color: #666;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+h2 {
+    color: #667eea;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* 上传区域 */
+.upload-section {
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    border: 3px dashed #667eea;
+    border-radius: 15px;
+    padding: 60px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.upload-area:hover {
+    border-color: #764ba2;
+    background: #f8f9fa;
+}
+
+.upload-area.dragover {
+    border-color: #764ba2;
+    background: #e9ecef;
+    transform: scale(1.02);
+}
+
+#fileInput {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.upload-content p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.hint {
+    font-size: 14px !important;
+    color: #999 !important;
+}
+
+/* 图片预览 */
+.preview-section {
+    margin-bottom: 30px;
+}
+
+.image-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.image-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: white;
+    padding: 10px;
+    cursor: move;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.image-item:hover {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+.image-item.dragging {
+    opacity: 0.5;
+}
+
+.image-item.drag-over {
+    border-top: 3px solid #667eea;
+}
+
+.image-item .drag-handle {
+    font-size: 24px;
+    color: #999;
+    cursor: grab;
+    user-select: none;
+}
+
+.image-item .drag-handle:active {
+    cursor: grabbing;
+}
+
+.image-item .preview-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f8f9fa;
+}
+
+.image-item .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.image-item .index {
+    background: #667eea;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+    width: fit-content;
+}
+
+.image-item .filename {
+    color: #666;
+    font-size: 14px;
+    word-break: break-all;
+}
+
+.image-item .remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.image-item .remove-btn:hover {
+    background: #c82333;
+    transform: scale(1.1);
+}
+
+/* 设置区域 */
+.settings-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-item label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.setting-item input,
+.setting-item select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.setting-item input:focus,
+.setting-item select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* 按钮 */
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-clear {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-clear:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+.btn-generate {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;
+}
+
+.btn-generate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-generate:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.action-section {
+    margin-bottom: 30px;
+}
+
+/* 进度条 */
+.progress-section {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 30px;
+    background: #e9ecef;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s;
+    width: 0%;
+}
+
+.progress-text {
+    color: #666;
+    font-size: 14px;
+}
+
+/* 结果区域 */
+.result-section {
+    text-align: center;
+}
+
+#resultVideo {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.result-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-download,
+.btn-restart {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-download:hover,
+.btn-restart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.convert-guide {
+    text-align: left;
+}
+
+.convert-guide h3 {
+    display: flex;
+    align-items: center;
+}
+
+.convert-guide code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+.convert-guide a {
+    font-weight: 600;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 28px;
+    }
+    
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .image-list {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+}
